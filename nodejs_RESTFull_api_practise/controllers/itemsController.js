@@ -61,12 +61,25 @@ exports.getItemById = (req, res) => {
 // Update (PUT)
 exports.updateItem = (req, res) => {
     try {
-        
+        const {name,description,price}=req.body;
+        let data={id:nextId++,
+            name,
+            desc:description,
+            price
+        }
+        let id=req.params.id
+        console.log(id)
+        for(let i=0;i<items.length;i++){
+            if(items[i].id==id){
+                items[i]=data
+                console.log(items[i])
+                res.status(200).json(items[i]);
+            }
+        }
+
 
         // write content to update the items based on id
 
-
-        res.status(200).json(items[index]);
     } catch (error) {
         res.status(400).json({ message: 'Error updating item', error });
     }
